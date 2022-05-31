@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Belajar Jquery</title>
+    <script>
+        $(function(){
+            console.log('jquery sudah siap');
+
+            //selector
+            $("#tb").click(function(){
+                
+                $(".coba").text('Harap menunggu, sedang mengambil data...');
+
+                //ambil data dengan proses ajax
+                $.ajax({
+                    method: "GET",
+                    url: "https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood"
+                })
+                .done(function( msg ) {
+                    //konversi objek menjadi array
+                    let meals = msg.meals;
+                    console.log(meals);
+
+                    //masukkan kedalam id "p_id"
+                    // let isiData = meals[0].strMeal+ " <img src='"+ meals[0].strMealThumb+"'>" ;
+
+                    let isiData = "<table><tr><th></th></tr>";
+
+                    //menampilkan banyak data
+                    $.each(meals, function(index){
+                        isiData += "<tr><td>"+ meals[index].strMeal +"<br/><img src='"+ meals[index].strMealThumb +"' width='300'></td></tr>";
+                    });
+
+                    $("#p_id").html(isiData + "</table>");
+                    $(".coba").text('Data berhasil ditampilkan');
+                });
+            });
+
+            $("p").click(function(){
+                console.log('p diklik');
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <button>Tombol tanpa ID</button>
+    <p>Uji coba p tanpa ID</p>
+
+    <button id="tb">Tombol dengan ID</button>
+    <p id="p_id">Uji coba p dengan ID</p>
+
+    <p class="coba"></p>
+</body>
+</html>

@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Resep Dunia</title>
 </head>
 <body>
+    <img id="loading" src="loading.gif">
     <div class="container mx-auto p-6 w-4/5 mt-5">
        <div class="w-fit mx-auto">
             <ul class="mx-auto">
@@ -19,43 +21,31 @@
         
         <h3 class="text-4xl text-amber-400 py-20 font-semibold text-center">Masak apa hari ini?</h3>
 
-        <div class="grid grid-cols-4 gap-4">
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?seafood');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?breakfast');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?dinner');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?fruits');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?vegan');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?cake');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?salad');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?vegetable');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?pasta');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?burger');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?spinach');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?meat');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?food');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?donut');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?tasty');"></div> 
-
-            <div class="h-60 overflow-hidden bg-center bg-cover rounded-md" style="background-image: url('http://source.unsplash.com/300x250?fruit');"></div> 
-
-        </div>
+        <div id="resep" class="grid grid-cols-4 gap-4"></div>
         
-        <p class="text-sky-600 text-center py-10">xxxxx@2022</p>
+        <p class="text-sky-600 text-center py-10">namakamu@2022</p>
     </div>
-    
+
+    <script>
+        $(function(){
+           $.ajax({
+               method: "GET",
+               url: "https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood"
+           })
+           .done(function( msg ) {
+               //konversi objek menjadi array
+               let meals = msg.meals;
+               let isiData = "";
+
+               //menampilkan banyak data
+               $.each(meals, function(index){
+                    isiData+= "<div class='h-60 overflow-hidden bg-center bg-cover rounded-md'><a href='detil.html?id="+  meals[index].idMeal +"'><img src='"+ meals[index].strMealThumb +"'></div>";  
+               });
+
+               $("#resep").append(isiData);
+               $("#loading").hide(); //sembunyikan gambar "loading" jika data telah masuk
+           });
+        });
+   </script>
 </body>
 </html>

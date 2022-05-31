@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Index Resep</title>
+</head>
+<body>
+    <img id="loading" src="loading.gif">
+    <div class="container mx-auto p-6 w-4/5 mt-5">
+       <div class="w-fit mx-auto">
+            <ul class="mx-auto">
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="index.html">Home</a></li>
+                <li class="m-8 py-2 px-3 inline bg-sky-600 rounded-md text-white font-semibold hover:bg-sky-800"><a href="resep.html">Resep Dunia</a></li>
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="profil.html">Tentang Kami</a></li>
+            </ul> 
+       </div>
+
+       <div class="w-full my-20">
+
+            <!-- flex -->
+            <div class="flex rounded-md overflow-hidden">
+                <div id="photo" class="flex-auto w-1/2"></div>
+                <div class="flex-auto w-1/2 py-48">
+                    <h2 id="name" class="text-3xl font-semibold font-serif text-center text-gray-700"></h2>
+                    <p class="text-center pt-5 text-gray-700"><span id="category" class="px-2 py-1 border-solid border-2 border-gray-600"></span>  <span id="area" class="ml-10 px-2 py-1 border-solid border-2 border-gray-600"></span></p>
+                </div>
+            </div>
+
+            <p id="ingredients"class="px-28"></p>
+            <p id="instructions"class="pb-10 px-28"></p>
+         
+        <p class="text-sky-600 text-center py-10">namakamu@2022</p>
+    </div>
+            
+    <div class="fixed bottom-10 right-2">
+        <iframe id="youtube" class="float-right" width="250" height="165"></iframe>
+    </div>
+
+    <script>
+        $(function(){
+            //tangkap id
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+            
+            let id = $.urlParam('id');
+            
+            $.ajax({
+                method: "GET",
+                url: "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+ id
+            })
+            .done(function( msg ) {
+                //konversi objek menjadi array
+                let meals = msg.meals;
+                let meal = meals[0];
+                
+                $("#photo").css('background-image', 'url('+ meal.strMealThumb +')');
+                $("#name").text(meal.strMeal);
+                $("#area").text(meal.strArea);
+                $("#category").text(meal.strCategory);
+               
+                $("#instructions").html("<p class='font-semibold py-10 text-2xl'>Instructions</p>"+ meal.strInstructions);
+                
+                //memasukkan bahan dan ukuran
+                let bahan = "";
+                for (let i = 1; i <= 20; i++) {
+                    
+                    //jika kosong, maka keluar dari for
+                    if ( meal['strIngredient'+ i ] === "") break; 
+
+                    bahan += meal['strIngredient'+ i ] +" "+ meal['strMeasure'+ i ] +"<br/>";
+                }
+                
+                $("#ingredients").html("<p class='font-semibold py-10 text-2xl'>Ingredients</p>"+ bahan);
+
+                //memasukkan youtube video
+                let yt = meal.strYoutube;
+                yt = yt.replace('watch?v=','embed/');
+
+                //ubah ke embed video
+                $("#youtube").attr('src', yt);
+
+                $("#loading").hide(); //sembunyikan gambar "loading" jika data telah masuk
+            });
+        });
+   </script>
+</body>
+</html>
