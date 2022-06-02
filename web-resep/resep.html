@@ -39,7 +39,7 @@
 
                //menampilkan banyak data
                $.each(meals, function(index){
-                    isiData+= "<div class='h-60 overflow-hidden bg-center bg-cover rounded-md'><a href='detil.html?id="+  meals[index].idMeal +"'><img src='"+ meals[index].strMealThumb +"'></div>";  
+                    isiData+= "<div class='h-60 overflow-hidden bg-center bg-cover rounded-md'><a href='detil.html?id="+ meals[index].idMeal +"'><img src='"+ meals[index].strMealThumb +"'></a></div>";  
                });
 
                $("#resep").append(isiData);

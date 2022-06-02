@@ -58,9 +58,9 @@
                 //menampilkan banyak data
                 $.each(meals, function(index){
                     if(i < 3){
-                        isiData += "<div class='bg-slate-100 border rounded-md overflow-hidden'><div class='h-60 overflow-hidden'><a href='detil.html?id="+  meals[index].idMeal +"'><img class='w-full' src='"+ meals[index].strMealThumb +"'></div><p class='font-semibold text-xl p-5'>"+ meals[index].strMeal +"</p></a></div></div>";
+                        isiData += "<div class='bg-slate-100 border rounded-md overflow-hidden'><div class='h-60 overflow-hidden'><a href='detil.html?id="+ meals[index].idMeal +"'><img class='w-full' src='"+ meals[index].strMealThumb +"'></div><p class='font-semibold text-xl p-5'>"+ meals[index].strMeal +"</p></a></div></div>";
                     }else{
-                        isiResep += "<div class='h-60 overflow-hidden bg-center bg-cover rounded-md'><a href='detil.html?id="+  meals[index].idMeal +"'><img src='"+ meals[index].strMealThumb +"'></div>";    
+                        isiResep += "<div class='h-60 overflow-hidden bg-center bg-cover rounded-md'><a href='detil.html?id="+ meals[index].idMeal +"'><img src='"+ meals[index].strMealThumb +"'></a></div>";    
                     }
 
                     i++;
