@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Javascript</title>
+    <script></script>
+</head>
+<body>
+    <h3>Latihan JS</h3>
+    <div id="uji-coba"></div>
+    <script>
+        /*
+        console.log("test ini javascript");
+        console.log("tes lagi");
+        alert("Hai hai ini Javascript");
+
+        var hasil = document.getElementById("uji-coba");
+        hasil.innerHTML = "hai, ini javascript loh...";
+        */
+
+        //variabel
+        var nama = "Yunita Angraeni";
+        var nama = "jojo";
+
+        let alamat = "Bali";
+        let telepon = "0813xxxxxxxx";
+
+        //tekan ctrl + / ----> u/ komentar
+        // console.log(nama);  
+        // console.log(alamat);  
+        // console.log(telepon);  
+
+        //pemisah string dengan nilai variabel
+        console.log("Hai, namaku "+ nama +" telepon aku "+ telepon);
+
+        let usia = 25;
+        let belajar = true;
+
+
+        //perhitungan
+        let angka_1 = 25;
+        let angka_2 = 7;
+        console.log("jumlah: "+ (angka_1 + angka_2) );
+
+        //logika
+        // let makanan = prompt("Ketik makanan khas Palembang");
+
+        // if ( makanan == "pempek" ){
+        //     console.log("Benar");
+        // } else {
+        //     console.log("Salah");
+        // }
+
+        //logika bercabang
+        // let nilai = prompt("berapa nilai ujianmu?");
+        // nilai = parseInt(nilai); // string ke integer
+
+        //console.log(typeof nilai);
+
+        // if( nilai > 80){
+        //     console.log("A");
+        // }else if( nilai <= 80 && nilai >= 1) {
+        //     console.log("B");
+        // }else if( nilai <= 0 ){
+        //     console.log("Belum lulus");
+        // }
+
+        //looping
+        // for (let index = 0; index <= 20; index++) {
+        //     console.log("Nilaiku: "+ index);
+        // }
+
+        // let ulangi = prompt("Ulang berapa baris?");
+        // ulangi = parseInt(ulangi);
+
+        // for (let index = 0; index < ulangi; index++) {
+        //     console.log("Nilaiku: "+ index);
+        // }
+
+        var ulang = confirm("Mau pengulangan?");
+        let index = 0;
+        while(ulang){
+            console.log("Pengulangan ke-"+ index);
+            index++;
+            ulang = confirm("Apakah mau mengulang?")
+        }   
+
+        //Array
+        let produk = [2, "ember", 34, "Sikat gigi", 24];
+        for (let index = 0; index < produk.length; index++) {
+            console.log(produk[index]);
+            console.log("adalah "+ typeof produk[index]);
+        }
+
+
+
+    </script>
+</body>
+</html>
