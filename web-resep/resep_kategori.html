@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title></title>
+</head>
+<body>
+    <img id="loading" src="loading.gif">
+    <div class="container mx-auto p-6 w-4/5 mt-5">
+       <div class="w-fit mx-auto">
+            <ul class="mx-auto">
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="index.html">Home</a></li>
+                <li class="m-8 py-2 px-3 inline bg-sky-600 rounded-md text-white font-semibold hover:bg-sky-800"><a href="kategori.html">Kategori</a></li>
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="resep.html">Resep Dunia</a></li>
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="profil.html">Tentang Kami</a></li>
+            </ul> 
+       </div>
+        
+        <h3 id="pilih" class="text-4xl text-amber-400 py-20 font-semibold text-center">Pilih Kategori</h3>
+
+        <div id="resep" class="grid grid-cols-4 gap-4"></div>
+        
+        <p class="text-sky-600 text-center py-10">namakamu@2022</p>
+    </div>
+
+    <script>
+        $(function(){
+            //tangkap id
+             $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+            let kategori =  $.urlParam('kategori');
+
+           $.ajax({
+               method: "GET",
+               url: "https://www.themealdb.com/api/json/v1/1/filter.php?c="+ kategori
+           })
+           .done(function( msg ) {
+               //konversi objek menjadi array
+               let meals = msg.meals;
+               let isiData = "";
+
+               console.log(meals);
+               
+               //menampilkan banyak data
+                $.each(meals, function(index){
+                    isiData += "<div class='bg-slate-100 border rounded-md overflow-hidden'><div class='h-50 overflow-hidden'><a href='detil.html?id="+ meals[index].idMeal +"'><img class='w-full rounded-t-sm' src='"+ meals[index].strMealThumb +"'></div><p class='font-semibold text-xl p-5'>"+ meals[index].strMeal +"</p></a></div></div>";
+                });
+                $("title").text(kategori);
+                $("#pilih").text("Kamu memilih '"+ kategori +"'");
+                $("#resep").append(isiData);
+                $("#loading").hide(); //sembunyikan gambar "loading" jika data telah masuk
+           });
+        });
+   </script>
+</body>
+</html>

@@ -14,6 +14,7 @@
        <div class="w-fit mx-auto">
             <ul class="mx-auto">
                 <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="index.html">Home</a></li>
+                <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="kategori.html">Kategori</a></li>
                 <li class="m-8 py-2 px-3 inline bg-sky-600 rounded-md text-white font-semibold hover:bg-sky-800" ><a href="resep.html">Resep Dunia</a></li>
                 <li class="m-8 text-sky-600 font-semibold inline hover:text-sky-800"><a href="profil.html">Tentang Kami</a></li>
             </ul> 
@@ -60,6 +61,7 @@
             .done(function( msg ) {
                 //konversi objek menjadi array
                 let meals = msg.meals;
+                console.log(meals);
                 let meal = meals[0];
 
                 $("#photo").css('background-image', 'url('+ meal.strMealThumb +')')
